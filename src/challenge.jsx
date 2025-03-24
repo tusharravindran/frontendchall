@@ -209,13 +209,17 @@ function ProgressBar() {
 
 function HolyGrailLayout() {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] grid-cols-[auto_1fr_auto] gap-4 p-4">
-      <header className="bg-gray-800 text-white p-4">Header</header>
-      <aside className="bg-gray-200 p-4">Left Sidebar</aside>
-      <main className="bg-gray-100 p-4">Main Content</main>
-      <aside className="bg-gray-200 p-4">Right Sidebar</aside>
-      <footer className="bg-gray-800 text-white p-4">Footer</footer>
-    </div>
+<div className="">
+  <header className="bg-gray-800 text-white p-4">Header</header>
+  <div className="grid grid-cols-3 gap-4 border-red">
+    <aside className="bg-gray-200 p-4">Left Sidebar</aside>
+    <main className="bg-gray-100 p-4">Main Content</main>
+    <aside className="bg-gray-200 p-4">Right Sidebar</aside>
+  </div>
+
+  <footer className="bg-gray-800 text-white p-4">Footer</footer>
+</div>
+
   );
 }
   
