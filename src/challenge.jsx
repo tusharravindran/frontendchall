@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Home, Clock, ThumbsUp, Star, List, Settings, Lightbulb, BarChart, LayoutGrid } from "lucide-react";
-
 function Counter() {
   const [count, setCount] = useState(0);
 
   return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
+    <div className="p-4">
+      <p className="text-xl">Count: {count}</p>
+      <div className="space-x-2">
+        <button
+          onClick={() => setCount(count + 1)}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400"
+        >
+          Increment
+        </button>
+        <button
+          onClick={() => setCount(count - 1)}
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-400"
+        >
+          Decrement
+        </button>
+      </div>
     </div>
   );
 }
@@ -18,7 +29,10 @@ function LikeButton() {
   const [liked, setLiked] = useState(false);
 
   return (
-    <button onClick={() => setLiked(!liked)} className="bg-black">
+    <button
+      onClick={() => setLiked(!liked)}
+      className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+    >
       {!liked ? "🤍" : "❤️"}
     </button>
   );
@@ -40,12 +54,22 @@ function Stopwatch() {
   }, [running]);
 
   return (
-    <div>
-      <p>Time: {time}s</p>
-      <button onClick={() => setRunning(!running)}>
-        {running ? "Pause" : "Start"}
-      </button>
-      <button onClick={() => setTime(0)}>Reset</button>
+    <div className="space-y-2">
+      <p className="text-xl">Time: {time}s</p>
+      <div className="space-x-2">
+        <button
+          onClick={() => setRunning(!running)}
+          className={`px-4 py-2 ${running ? 'bg-red-500' : 'bg-green-500'} text-white rounded hover:bg-${running ? 'red' : 'green'}-400`}
+        >
+          {running ? "Pause" : "Start"}
+        </button>
+        <button
+          onClick={() => setTime(0)}
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-400"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 }
@@ -54,7 +78,7 @@ function StarRating() {
   const [rating, setRating] = useState(0);
   
   return (
-    <div className="flex text-3xl">
+    <div className="flex space-x-1 text-3xl">
       {[1, 2, 3, 4, 5].map((star) => (
         <span
           key={star}
@@ -70,114 +94,122 @@ function StarRating() {
   );
 }
 
-
-
 function Tabs() {
     const [activeTab, setActiveTab] = useState("tab1");
   
     return (
-      <div>
-        <div className="tabs">
-          <button onClick={() => setActiveTab("tab1")}>Tab 1</button>
-          <button onClick={() => setActiveTab("tab2")}>Tab 2</button>
-          <button onClick={() => setActiveTab("tab3")}>Tab 3</button>
+      <div className="space-y-4">
+        <div className="flex space-x-4">
+          <button
+            onClick={() => setActiveTab("tab1")}
+            className={`px-4 py-2 rounded ${activeTab === "tab1" ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
+            Tab 1
+          </button>
+          <button
+            onClick={() => setActiveTab("tab2")}
+            className={`px-4 py-2 rounded ${activeTab === "tab2" ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
+            Tab 2
+          </button>
+          <button
+            onClick={() => setActiveTab("tab3")}
+            className={`px-4 py-2 rounded ${activeTab === "tab3" ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
+            Tab 3
+          </button>
         </div>
-        <div className="tab-content">
+        <div className="tab-content p-4 border border-gray-200 rounded">
           {activeTab === "tab1" && <p className="font-bold">This is content for Tab 1</p>}
           {activeTab === "tab2" && <p>This is content for Tab 2</p>}
           {activeTab === "tab3" && <p>This is content for Tab 3</p>}
         </div>
       </div>
     );
-  }
-  
-  function Accordion() {
-    const [open, setOpen] = useState(null);
-  
-    const toggleAccordion = (index) => {
-      setOpen(open === index ? null : index);
-    };
-  
-    return (
-      <div>
-        <div className="accordion-item">
-          <button onClick={() => toggleAccordion(1)} className="accordion-header">
-            Accordion 1
-          </button>
-          {open === 1 && <div className="accordion-body">This is content for Accordion 1</div>}
-        </div>
-        <div className="accordion-item">
-          <button onClick={() => toggleAccordion(2)} className="accordion-header">
-            Accordion 2
-          </button>
-          {open === 2 && <div className="accordion-body">This is content for Accordion 2</div>}
-        </div>
-        <div className="accordion-item">
-          <button onClick={() => toggleAccordion(3)} className="accordion-header">
-            Accordion 3
-          </button>
-          {open === 3 && <div className="accordion-body">This is content for Accordion 3</div>}
-        </div>
-      </div>
-    );
-  }
+}
 
-  function TrafficLights() {
-    const [light, setLight] = useState("red");
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setLight((prev) => {
-          if (prev === "red") return "green";
-          if (prev === "green") return "yellow";
-          return "red";
-        });
-      }, 1000);
-  
-      return () => clearInterval(interval);
-    }, []);
-  
-    return (
-      <div className="traffic-lights">
-        <div className={`light red ${light === "red" ? "active" : ""}`}></div>
-        <div className={`light yellow ${light === "yellow" ? "active" : ""}`}></div>
-        <div className={`light green ${light === "green" ? "active" : ""}`}></div>
-      </div>
-    );
-  }
+function Accordion() {
+  const [open, setOpen] = useState(null);
 
-  
-  function ProgressBar() {
-    const [progress, setProgress] = useState(0);
-  
-    useEffect(() => {
-      if (progress < 100) {
-        const timer = setInterval(() => setProgress((prev) => prev + 10), 1000);
-        return () => clearInterval(timer);
-      }
-    }, [progress]);
-  
-    return (
-      <div>
-        <div className="progress-bar">
-          <div className="progress" style={{ width: `${progress}%` }}></div>
+  const toggleAccordion = (index) => {
+    setOpen(open === index ? null : index);
+  };
+
+  return (
+    <div className="space-y-4">
+      {[1, 2, 3].map((index) => (
+        <div key={index} className="accordion-item border-b">
+          <button
+            onClick={() => toggleAccordion(index)}
+            className="accordion-header px-4 py-2 w-full text-left font-semibold text-gray-700 hover:bg-gray-200 rounded"
+          >
+            Accordion {index}
+          </button>
+          {open === index && <div className="accordion-body px-4 py-2">This is content for Accordion {index}</div>}
         </div>
-        <p>{progress}%</p>
-      </div>
-    );
-  }
+      ))}
+    </div>
+  );
+}
 
-  function HolyGrailLayout() {
-    return (
-      <div className="holy-grail">
-        <header className="header">Header</header>
-        <aside className="sidebar-left">Left Sidebar</aside>
-        <main className="main-content">Main Content</main>
-        <aside className="sidebar-right">Right Sidebar</aside>
-        <footer className="footer">Footer</footer>
+function TrafficLights() {
+  const [light, setLight] = useState("red");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLight((prev) => {
+        if (prev === "red") return "green";
+        if (prev === "green") return "yellow";
+        return "red";
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex justify-center space-x-4 py-4">
+      <div className={`light w-10 h-10 rounded-full ${light === "red" ? "bg-red-500" : "bg-gray-300"}`}></div>
+      <div className={`light w-10 h-10 rounded-full ${light === "yellow" ? "bg-yellow-500" : "bg-gray-300"}`}></div>
+      <div className={`light w-10 h-10 rounded-full ${light === "green" ? "bg-green-500" : "bg-gray-300"}`}></div>
+    </div>
+  );
+}
+
+function ProgressBar() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (progress < 100) {
+      const timer = setInterval(() => setProgress((prev) => prev + 10), 1000);
+      return () => clearInterval(timer);
+    }
+  }, [progress]);
+
+  return (
+    <div className="space-y-2">
+      <div className="w-full h-4 bg-gray-300 rounded">
+        <div
+          className="h-full bg-blue-500 rounded"
+          style={{ width: `${progress}%` }}
+        ></div>
       </div>
-    );
-  }
+      <p className="text-xl">{progress}%</p>
+    </div>
+  );
+}
+
+function HolyGrailLayout() {
+  return (
+    <div className="grid grid-rows-[auto_1fr_auto] grid-cols-[auto_1fr_auto] gap-4 p-4">
+      <header className="bg-gray-800 text-white p-4">Header</header>
+      <aside className="bg-gray-200 p-4">Left Sidebar</aside>
+      <main className="bg-gray-100 p-4">Main Content</main>
+      <aside className="bg-gray-200 p-4">Right Sidebar</aside>
+      <footer className="bg-gray-800 text-white p-4">Footer</footer>
+    </div>
+  );
+}
   
   const challenges = [
     { name: "Counter", icon: Home },
